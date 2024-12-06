@@ -3,95 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Systèmes Humains et Océaniques</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Captcha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #popupWindow {
+            display: none; /* Initialement masqué */
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px;
+            flex-direction: column; /* Organiser les éléments en colonne */
+            display: flex;
+        }
+
+        #gameGrid {
+            display: grid;
+            grid-template-columns: repeat(3, 120px);
+            gap: 10px;
+            margin: 20px auto;
+        }
+
+        .cell {
+            width: 120px;
+            height: 120px;
+            background-color: #000000;  /* Fond noir de base */
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            background-size: cover;  /* Pour que l'image occupe toute la cellule */
+        }
+
+        .cell:hover {
+            transform: scale(1.05);
+        }
+
+        .cell.flashing {
+            background-image: url('');  /* À définir via JavaScript pour chaque cellule */
+        }
+
+        #message {
+            font-size: 20px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        /* Animation du message */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Amélioration du bloc checkbox-container */
+        .checkbox-container {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            display: inline-block;
+        }
+
+        .checkbox-container p {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .checkbox-container label {
+            font-size: 18px;
+            margin-left: 10px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #4CAF50; /* Change la couleur du check pour le rendre plus joli */
+            cursor: pointer;
+            transform: scale(1.3); /* Agrandir la case à cocher pour plus de visibilité */
+            transition: transform 0.3s ease;
+        }
+
+        .checkbox-container input[type="checkbox"]:hover {
+            transform: scale(1.4); /* Effet de survol pour l'agrandir légèrement */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
-
-    <!-- Header -->
-    <div class="header">
-        Les parallèles entre l'Océan et le Corps Humain
+    <!-- Container pour le checkbox -->
+    <div class="checkbox-container">
+        <p>Re-Captcha 2.0</p>
+        <input type="checkbox" id="captchaCheckbox"> 
+        <label for="captchaCheckbox">Je ne suis pas un robot</label>
     </div>
 
-    <!-- Cards container -->
-    <div class="card-container">
-        <!-- Card 1 -->
-        <div class="card" onclick="openModal('card1')">
-            <img src="images/lokhlass.png" alt="Océan et système circulatoire">
-            <div class="content">
-                <h3>Le Système Circulatoire et les Courants Océaniques</h3>
-            </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card" onclick="openModal('card2')">
-            <img src="images/akwakwak.png" alt="Océan et système nerveux">
-            <div class="content">
-                <h3>Le Système Nerveux et les Signaux Sous-marins</h3>
-            </div>
-        </div>
-
-        <!-- New Card 3 -->
-        <div class="card" onclick="openModal('card3')">
-            <img src="images/carapuce.png" alt="Océan et respiration">
-            <div class="content">
-                <h3>La Respiration et l'Exchange Gazeux dans l'Océan</h3>
-            </div>
-        </div>
-
-        <!-- New Card 4 -->
-        <div class="card" onclick="openModal('card4')">
-            <img src="images/amphinobi.png" alt="Océan et système digestif">
-            <div class="content">
-                <h3>Le Système Digestif et les Nutriments sous-marins</h3>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">X</button>
-            <h2 id="modal-title"></h2>
-            <p id="modal-description"></p>
-        </div>
+    <!-- Fenêtre de jeu cachée au départ -->
+    <div id="popupWindow" class="hidden">
+        <div id="message">Cliquez sur la case pour démarrer le jeu...</div>
+        <div id="gameGrid"></div>
     </div>
 
     <script>
-        // Open Modal with content
-        function openModal(cardId) {
-            const modal = document.getElementById('modal');
-            const title = document.getElementById('modal-title');
-            const description = document.getElementById('modal-description');
-            let pageUrl = '';
+        const checkbox = document.getElementById("captchaCheckbox");
+        const popup = document.getElementById("popupWindow");
+        popup.style.display = 'none';
+        const gameGrid = document.getElementById("gameGrid");
+        const message = document.getElementById("message");
+        const checkboxContainer = document.querySelector(".checkbox-container");
 
-            if (cardId === 'card1') {
-                title.innerText = 'Circulation Sanguine et Courants Océaniques';
-                description.innerText = 'La circulation sanguine distribue les nutriments dans le corps, similaire aux courants marins qui véhiculent des éléments essentiels dans l\'océan. Les courants marins jouent un rôle vital en régulant le climat et la biodiversité des océans.';
-                pageUrl = 'circulation.html';  // URL de la page spécifique
-            } else if (cardId === 'card2') {
-                title.innerText = 'Système Nerveux et Signaux Sous-marins';
-                description.innerText = 'Les signaux nerveux électriques traversent notre corps, tout comme les signaux sous-marins qui transmettent des informations entre les écosystèmes marins. Les ondes électriques dans les océans sont essentielles pour les communications entre créatures marines.';
-                pageUrl = 'nerveux.html';  // URL de la page spécifique
-            } else if (cardId === 'card3') {
-                title.innerText = 'Respiration et Échanges Gazeux dans l\'Océan';
-                description.innerText = 'Les plantes aquatiques produisent de l\'oxygène et filtrent le CO2 de l\'eau, tout comme nos poumons régulent l\'oxygénation dans notre corps. Ce processus est crucial pour maintenir l\'équilibre dans l\'océan et le corps humain.';
-                pageUrl = 'respiration.html';  // URL de la page spécifique
-            } else if (cardId === 'card4') {
-                title.innerText = 'Système Digestif et Nutriments Sous-Marins';
-                description.innerText = 'Les nutriments capturés par les organismes marins sont assimilés tout comme les nutriments que notre système digestif absorbe pour nourrir nos cellules. L\'océan est un réservoir de nutriments essentiels pour toute vie marine et pour la régénération de l\'écosystème.';
-                pageUrl = 'digestif.html';  // URL de la page spécifique
+        let sequence = [];
+        let playerSequence = [];
+        let isPlayerTurn = false;
+
+        // Liste des images d'activation pour chaque cellule
+        const images = [
+            "images/simon/corail1.jpeg", 
+            "images/simon/dauphin.jpeg", 
+            "images/simon/plongeur.jpeg", 
+            "images/simon/corail2.jpeg", 
+            "images/simon/poisson.jpeg", 
+            "images/simon/poulpe.jpeg", 
+            "images/simon/raie.jpeg", 
+            "images/simon/requin.jpeg", 
+            "images/simon/tortue.jpeg"
+        ];
+
+        // Gestion de l'ouverture du jeu
+        checkbox.addEventListener("change", function() {
+            if (checkbox.checked) {
+                openPopup();
+                startGame();
+                checkboxContainer.style.display = 'none';  // Masquer le checkbox container
             }
+        });
 
-            modal.style.display = 'flex'; // Affiche la modal
+        // Ouvrir la fenêtre pop-up
+        function openPopup() {
+            popup.style.display = "flex";  // Afficher la fenêtre de jeu
         }
 
-        // Close Modal
-        function closeModal() {
-            const modal = document.getElementById('modal');
-            modal.style.display = 'none';
+        // Créer la grille
+        document.addEventListener('DOMContentLoaded', () => {
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.id = `cell-${i}`;
+                cell.style.backgroundColor = '#000000';  // Fond noir de base
+                cell.style.backgroundImage = '';  // Pas d'image initialement
+                cell.addEventListener('click', () => handlePlayerInput(i));
+                gameGrid.appendChild(cell);
+            }
+        });
+
+        // Démarrer le jeu via une requête AJAX
+        function startGame() {
+            fetch('game.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'startGame' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'started') {
+                    sequence = data.sequence;
+                    playSequence();
+                }
+            });
         }
+
+        // Jouer la séquence (affichage des cases)
+        function playSequence() {
+            let i = 0;
+            isPlayerTurn = false;
+
+            message.textContent = `Regardez la séquence...`;
+
+            const interval = setInterval(() => {
+                if (i >= sequence.length) {
+                    clearInterval(interval);
+                    isPlayerTurn = true;
+                    message.textContent = "À vous de jouer !";
+                    return;
+                }
+
+                const cell = document.getElementById(`cell-${sequence[i]}`);
+                flashCell(cell, i);
+                i++;
+            }, 800);
+        }
+
+        // Faire clignoter une case
+        function flashCell(cell, i) {
+            cell.style.backgroundImage = `url('${images[i]}')`;  // Applique l'image spécifique de la cellule
+            cell.classList.add('flashing');
+            setTimeout(() => {
+                cell.style.backgroundImage = '';  // Retirer l'image après le flash
+                cell.classList.remove('flashing');
+            }, 500);
+        }
+
+        // Gérer l'entrée du joueur
+        function handlePlayerInput(index) {
+            if (!isPlayerTurn) return;
+
+            const cell = document.getElementById(`cell-${index}`);
+            flashCell(cell, index);
+
+            playerSequence.push(index);
+
+            if (playerSequence.length === sequence.length) {
+                sendSequenceToServer();
+            }
+        }
+
+        // Envoyer la séquence du joueur au serveur
+        function sendSequenceToServer() {
+            fetch('game.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'check', sequence: playerSequence })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    message.textContent = "Félicitations, vous avez gagné !";
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 2000);
+                } else if (data.status === 'nextRound') {
+                    playerSequence = [];
+                    sequence = data.sequence;
+                    playSequence();
+                } else {
+                    message.textContent = "Échec ! Réessayez.";
+                    setTimeout(() => {
+                        closePopup();
+                    }, 1500);  // Ferme la fenêtre après un délai
+                }
+            });
+        }
+
+        // Fermer la fenêtre pop-up
+        function closePopup() {
+            location.reload();  // Recharge la page pour réinitialiser tout l'état
+            checkbox.checked = false;
+        }
+
     </script>
-
 </body>
 </html>
