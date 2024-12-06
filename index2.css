@@ -1,0 +1,320 @@
+*{
+    margin: 0;
+}
+
+title{
+    color : red;
+}
+
+body{
+    min-height: 100vh;
+}
+
+.nabla-lorem {
+    font-family: "Nabla", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "EDPT" 100,
+      "EHLT" 12;
+}
+
+.big_font {
+    font-size: 10em;
+}
+
+.smol_font {
+    font-size: 2px;
+}
+
+.cyan {
+    color: rgb(43,255,255);
+}
+
+.vertPomme {
+    color: rgb(106, 248, 106);
+}
+
+.voiletEISPRISTIC {
+    color: rgb(125, 46, 135);
+}
+
+.fushia {
+    color: rgb(255, 0, 255);
+}
+
+.fushia_bg {
+    background-color: rgb(255, 255, 255);
+}
+
+.cyan_bg {
+    background-color: cyan;
+}
+
+.cyan_bg:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+.jaune {
+    color: rgb(255, 243, 0);
+}
+
+.rouge {
+    color: rgb(255, 0, 0);
+    text-shadow: 0 0 60px rgba(255, 0, 0);
+}
+
+.bleu {
+    color: rgb(0, 0, 255);
+    text-shadow: 0 0 60px rgba(0, 0, 255);
+}
+
+.vert {
+    color: rgb(0, 255, 0);
+    text-shadow: 0 0 60px rgba(0, 255, 0);
+}
+
+.orange {
+    color:rgb(255, 128, 0)
+}
+
+.rosePetasse {
+    color:rgb(253, 24, 150)
+}
+
+.violet {
+    color: rgb(200, 0, 255);
+}
+
+.image-clignote  {
+    animation-duration: .8s;
+    animation-name: clignoter;
+    animation-iteration-count: infinite;
+    transition: none;
+}
+ 
+@keyframes clignoter {
+   0%   { opacity:1; }
+   40%   {opacity:0; }
+   100% { opacity:1; }
+}
+
+#horrible_div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#horrible_div>*{
+    text-align: center;
+}
+
+.horrible_input{
+    text-align: center;
+    margin: auto;
+}
+
+footer {
+    background-color: #f1f1f1;
+    color: #333;
+    text-align: center;
+    padding: 30px 10px;
+    font-size: 14px;
+}
+
+footer h2 {
+    font-size: 20px;
+    color: #900;
+}
+
+footer .important {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+footer a {
+    color: #0275d8;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer .socials a {
+    margin: 0 10px;
+}
+
+footer .contact-email {
+    color: #6c757d;
+}
+
+footer .policy {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+footer .footer-note {
+    font-size: 12px;
+    margin-top: 20px;
+    color: #333;
+}
+
+footer small, header p{
+    text-align: center;
+}
+
+
+.bubble{
+    border: solid 2px rgba(0, 150, 255, 0.7);
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color:rgba(109, 152, 218, 0.7);
+    transition: all 0.5s ease;
+}
+
+.bigBubble{
+    transform:scale(1.2);
+}
+
+label{
+    font-size: medium;
+}
+
+header {
+    background-color: rgb(222, 222, 222);
+    color: rgb(62, 26, 62);
+    text-align: center;
+    padding: 20px;
+    border-bottom: 15px solid orange;
+    font-family: 'Papyrus', sans-serif;
+    box-shadow: 0 0 20px rgb(154, 130, 130);
+  }
+
+  
+  header h1 {
+    font-size: 70px;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    text-shadow: 10px 10px 5px green, 0 0 30px blue, 0 0 10px purple;
+    margin-bottom: 50px;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+    background-color: yellow;
+    border: 5px dashed pink;
+  }
+  
+  nav a {
+    font-size: 40px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: red;
+    text-decoration: none;
+    padding: 20px 40px;
+    margin: 10px;
+    border: 3px solid brown;
+    background-color: lightgreen;
+    transition: transform 0.5s ease-in-out, background-color 0.3s;
+  }
+  
+  nav a:hover {
+    color: white;
+    background-color: pink;
+    transform: rotate(180deg);
+    box-shadow: 0 0 20px gold;
+  }
+  
+
+  table{
+    background-color: rgb(50, 33, 33);
+    border-collapse: separate;
+    margin: 15px;
+  }
+
+  tr{
+    color: mediumvioletred;
+    border: 1px solid #900;
+
+  }
+
+  th{
+    color: darkslategrey;
+    border:1px solid #900;
+  }
+
+  h3{
+    color: aqua;
+    margin-bottom: 15px;
+    position: absolute;
+    right: 0px;
+
+  }
+
+  td{
+    margin : 10em;
+  }
+/* Style pour l'input */
+.horrible {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    position: relative;
+}
+
+/* Style pour l'icône de la poubelle */
+.trash-can {
+    position: absolute;
+    top: 120px; /* Placez la poubelle plus bas pour que les lettres aient plus de place pour tomber */
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    fill: #888;
+}
+
+/* Conteneur pour les lettres qui tombent */
+.falling-letters {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Évite que le conteneur capte les clics */
+}
+
+/* Style pour chaque lettre tombante */
+.falling-letters span {
+    position: absolute;
+    font-size: 18px;
+    color: #ff0000; /* Couleur des lettres tombantes */
+    opacity: 0;
+    animation: fall 1s ease-in forwards;
+}
+
+/* Animation pour faire tomber les lettres */
+@keyframes fall {
+    0% {
+        opacity: 1;
+        transform: translateY(-30px) translateX(0); /* Partie du point A */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(120px) translateX(0); /* Partie du point B (poubelle) */
+    }
+}
+
+/* Effet de la poubelle quand elle reçoit les lettres */
+.trash-can:hover {
+    fill: #ff0000;
+    transform: scale(1.1);
+    transition: transform 0.3s, fill 0.3s;
+}
