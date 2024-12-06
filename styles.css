@@ -1,0 +1,185 @@
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #023e58;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('images/bgMenu.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    font-size: 3.5rem;
+    color: #000000;
+    font-weight: bold;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 30px;
+}
+
+/* Cards container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Animation de fade-in */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Card Style */
+.card {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 280px;
+    height: 500px; /* Augmentation de la hauteur pour laisser de l'espace en bas */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    transform: scale(1);
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.8);
+}
+
+.card img {
+    width: 100%;
+    height: 60%; /* Ajuste de la hauteur de l'image pour mieux occuper l'espace */
+    object-fit: cover; /* Gère la taille de l'image pour qu'elle remplisse l'espace sans être coupée */
+    border-radius: 15px 15px 0 0;
+}
+
+.card .content {
+    color: white;
+    text-align: center;
+    height: 40%; /* Limite la hauteur du contenu à la partie inférieure de la carte */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card .content h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.card .content p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+/* Modal Style */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: fadeInModal 0.3s ease-out;
+}
+
+@keyframes fadeInModal {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.modal-content {
+    background-color: #fff;
+    color: #333;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 80%;
+    width: 500px;
+    position: relative;
+}
+
+.modal-content h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.modal-close {
+    background-color: #ff5f5f;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    font-size: 1.2rem;
+}
+
+.modal-close:hover {
+    background-color: #ff1f1f;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .header {
+        font-size: 2.5rem;
+    }
+
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 85%;
+    }
+}
+
+/* Style du bouton Voir plus */
+.see-more-btn {
+    background-color: #00c2ff; /* Couleur de fond bleu */
+    color: white; /* Couleur du texte */
+    font-size: 1.2rem; /* Taille du texte */
+    padding: 10px 20px; /* Espacement à l'intérieur du bouton */
+    border: none; /* Retirer les bordures par défaut */
+    border-radius: 30px; /* Coins arrondis */
+    cursor: pointer; /* Curseur pointer pour indiquer que c'est cliquable */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Animation au survol */
+    display: inline-block;
+}
+
+/* Effet au survol */
+.see-more-btn:hover {
+    background-color: #0099cc; /* Changer la couleur de fond au survol */
+    transform: scale(1.1); /* Légère augmentation de la taille pour l'effet */
+}
+
+/* Effet de focus pour accessibilité */
+.see-more-btn:focus {
+    outline: none; /* Retirer le contour par défaut */
+    box-shadow: 0 0 10px rgba(0, 194, 255, 0.8); /* Ajouter un halo lumineux pour indiquer le focus */
+}

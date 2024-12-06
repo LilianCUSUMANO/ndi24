@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Systèmes Humains et Océaniques</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        Les parallèles entre l'Océan et le Corps Humain
+    </div>
+
+    <!-- Cards container -->
+    <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card" onclick="openModal('card1')">
+            <img src="images/lokhlass.png" alt="Océan et système circulatoire">
+            <div class="content">
+                <h3>Le Système Circulatoire et les Courants Océaniques</h3>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card" onclick="openModal('card2')">
+            <img src="images/akwakwak.png" alt="Océan et système nerveux">
+            <div class="content">
+                <h3>Le Système Nerveux et les Signaux Sous-marins</h3>
+            </div>
+        </div>
+
+        <!-- New Card 3 -->
+        <div class="card" onclick="openModal('card3')">
+            <img src="images/carapuce.png" alt="Océan et respiration">
+            <div class="content">
+                <h3>La Respiration et l'Exchange Gazeux dans l'Océan</h3>
+            </div>
+        </div>
+
+        <!-- New Card 4 -->
+        <div class="card" onclick="openModal('card4')">
+            <img src="images/amphinobi.png" alt="Océan et système digestif">
+            <div class="content">
+                <h3>Le Système Digestif et les Nutriments sous-marins</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">X</button>
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <script>
+        // Open Modal with content
+        function openModal(cardId) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const description = document.getElementById('modal-description');
+            let pageUrl = '';
+
+            if (cardId === 'card1') {
+                title.innerText = 'Circulation Sanguine et Courants Océaniques';
+                description.innerText = 'La circulation sanguine distribue les nutriments dans le corps, similaire aux courants marins qui véhiculent des éléments essentiels dans l\'océan. Les courants marins jouent un rôle vital en régulant le climat et la biodiversité des océans.';
+                pageUrl = 'circulation.html';  // URL de la page spécifique
+            } else if (cardId === 'card2') {
+                title.innerText = 'Système Nerveux et Signaux Sous-marins';
+                description.innerText = 'Les signaux nerveux électriques traversent notre corps, tout comme les signaux sous-marins qui transmettent des informations entre les écosystèmes marins. Les ondes électriques dans les océans sont essentielles pour les communications entre créatures marines.';
+                pageUrl = 'nerveux.html';  // URL de la page spécifique
+            } else if (cardId === 'card3') {
+                title.innerText = 'Respiration et Échanges Gazeux dans l\'Océan';
+                description.innerText = 'Les plantes aquatiques produisent de l\'oxygène et filtrent le CO2 de l\'eau, tout comme nos poumons régulent l\'oxygénation dans notre corps. Ce processus est crucial pour maintenir l\'équilibre dans l\'océan et le corps humain.';
+                pageUrl = 'respiration.html';  // URL de la page spécifique
+            } else if (cardId === 'card4') {
+                title.innerText = 'Système Digestif et Nutriments Sous-Marins';
+                description.innerText = 'Les nutriments capturés par les organismes marins sont assimilés tout comme les nutriments que notre système digestif absorbe pour nourrir nos cellules. L\'océan est un réservoir de nutriments essentiels pour toute vie marine et pour la régénération de l\'écosystème.';
+                pageUrl = 'digestif.html';  // URL de la page spécifique
+            }
+
+            modal.style.display = 'flex'; // Affiche la modal
+        }
+
+        // Close Modal
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
